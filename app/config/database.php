@@ -1,13 +1,17 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-$database['main'] = array(
-    'driver'     => 'mysql',
-    'hostname'   => 'localhost',
-    'port'       => 3306,
-    'username'   => 'root',
-    'password'   => '',
-    'database'   => 'mydb',
-    'charset'    => 'utf8mb4',
-    'dbprefix'   => '',
-);
+return [
+    'main' => [
+        'dsn'        => '',
+        'hostname'   => env('DB_HOST', 'localhost'),
+        'username'   => env('DB_USERNAME', 'root'),
+        'password'   => env('DB_PASSWORD', ''),
+        'database'   => env('DB_DATABASE', 'mydb'),
+        'dbdriver'   => 'mysqli',
+        'dbprefix'   => '',
+        'port'       => env('DB_PORT', 3306),
+        'charset'    => 'utf8mb4',
+        'dbcollat'   => 'utf8mb4_general_ci',
+    ],
+];
