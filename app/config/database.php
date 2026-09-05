@@ -1,7 +1,11 @@
 <?php
 defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 
-return [
+/**
+ * Database configuration
+ * This framework expects a `$database` variable to be defined.
+ */
+$database = [
     'main' => [
         'dsn'        => '',
         'hostname'   => getenv('DB_HOST') ?: 'localhost',
@@ -15,3 +19,6 @@ return [
         'dbcollat'   => 'utf8mb4_general_ci',
     ],
 ];
+
+// For backward compatibility, also return the array if someone expects a return value
+return $database;
