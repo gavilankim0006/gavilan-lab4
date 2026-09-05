@@ -279,7 +279,13 @@ class Database {
 
         if ($driver === 'mysql') {
             $ssl_ca = isset($database_config['ssl_ca']) ? trim($database_config['ssl_ca']) : '';
+
+            if ($ssl_ca !== '' && !preg_match('#^([A-Za-z]:)?[/\\\\]#', $ssl_ca) && defined('ROOT_DIR')) {
+                $ssl_ca = ROOT_DIR . ltrim(str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $ssl_ca), DIRECTORY_SEPARATOR);
+            }
+
             if ($ssl_ca !== '' && is_file($ssl_ca)) {
+                $dsn .= ';sslmode=verify-ca;sslrootcert=' . $ssl_ca;
                 $options[PDO::MYSQL_ATTR_SSL_CA] = $ssl_ca;
                 $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
             }
