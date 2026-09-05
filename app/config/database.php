@@ -17,6 +17,7 @@ $database = [
         'port'       => getenv('DB_PORT') ?: 3306,
         'charset'    => 'utf8mb4',
         'dbcollat'   => 'utf8mb4_general_ci',
+        'ssl_ca'     => getenv('DB_SSL_CA') ?: '',
     ],
 ];
 
