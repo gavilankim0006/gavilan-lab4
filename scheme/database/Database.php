@@ -199,11 +199,20 @@ class Database {
      */
     public function __construct($dbname = NULL)
     {
-        if(is_null($dbname)) {
-            $database_config = database_config()['main'];
+        $dbs = database_config();
+
+        if (!is_array($dbs)) {
+            throw new PDOException('Database configuration is missing or invalid.');
+        }
+
+        if (is_null($dbname)) {
+            if (!isset($dbs['main'])) {
+                throw new PDOException('No active configuration for the default database (main).');
+            }
+            $database_config = $dbs['main'];
         } else {
-            if(isset(database_config()[$dbname])) {
-                $database_config = database_config()[$dbname];
+            if (isset($dbs[$dbname])) {
+                $database_config = $dbs[$dbname];
             } else {
                 throw new PDOException('No active configuration for this database.');
             }
